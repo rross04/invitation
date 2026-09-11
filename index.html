@@ -37,7 +37,7 @@
   .content{
     max-width:420px;
     margin:0 auto;
-    padding:56px 24px 0;
+    padding:120px 24px 0;
     position:relative;
     z-index:2;
     overflow:visible;
@@ -77,10 +77,6 @@
     width:100%;
     height:auto;
   }
-  .disco-spin{
-    animation:spin 9s linear infinite;
-  }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -220,20 +216,20 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero reveal">
-    <img class="decor float-b" src="images/estrella-grunge.png" alt="" style="top:6px;right:2%;width:clamp(50px,18vw,80px);">
+    <img class="decor float-b" src="images/estrella-grunge.png" alt="" style="top:6px;right:-2%;width:clamp(50px,18vw,80px);">
 
     <!-- silver disco ball, top-left, clickable for confetti -->
     <div class="decor clickable float-a" style="top:-4px; left:-8%; width:clamp(90px,32vw,140px);" onclick="burstConfetti()" title="Toca la bola disco">
-      <img class="disco-spin" src="images/disco-plata.png" alt="">
+      <img src="images/disco-plata.png" alt="">
     </div>
 
-    <!-- pink disco ball, top-right, clickable -->
-    <div class="decor clickable float-b" style="top:26px; right:-10%; width:clamp(80px,28vw,120px);" onclick="burstConfetti()" title="Toca la bola disco">
-      <img class="disco-spin" src="images/disco-rosa.png" alt="">
+    <!-- pink disco ball, lower down on the right, clickable -->
+    <div class="decor clickable float-b" style="top:440px; right:-12%; width:clamp(80px,28vw,120px);" onclick="burstConfetti()" title="Toca la bola disco">
+      <img src="images/disco-rosa.png" alt="">
     </div>
 
-    <!-- silver bunting across the very top -->
-    <img class="decor float-a" src="images/banderines.png" alt="" style="top:-46px; left:50%; transform:translateX(-50%); width:clamp(200px,70vw,320px);">
+    <!-- silver bunting, top center of the page, bigger -->
+    <img class="decor float-a" src="images/banderines.png" alt="" style="top:-90px; left:50%; transform:translateX(-50%); width:clamp(240px,78vw,360px);">
 
     <img class="title-img" src="images/titulo.png" alt="Te invito a celebrar mi cumpleaños">
   </section>
@@ -247,17 +243,17 @@
   <!-- ================= DETALLES ================= -->
   <section class="details reveal">
     <!-- martini glass, left edge -->
-    <img class="decor float-b" src="images/copa.png" alt="" style="top:24px; left:-14%; width:clamp(80px,28vw,130px);">
+    <img class="decor float-b" src="images/copa.png" alt="" style="top:24px; left:-22%; width:clamp(80px,28vw,130px);">
     <!-- lips, right edge -->
-    <img class="decor float-a" src="images/labios.png" alt="" style="top:60px; right:-10%; width:clamp(60px,22vw,100px);">
+    <img class="decor float-a" src="images/labios.png" alt="" style="top:60px; right:-18%; width:clamp(60px,22vw,100px);">
 
     <div class="detail-line">Miércoles 16 de septiembre</div>
     <div class="detail-line">8:00 PM</div>
     <div class="detail-line">Yiva's Bar Restaurante, Nandayure</div>
-    <span class="sub">música, tragos y mucho baile</span>
+    <span class="sub">Te espero para celebrar juntos y compartir una linda velada</span>
 
     <!-- cupcake, right edge -->
-    <img class="decor float-a" src="images/cupcake.png" alt="" style="bottom:-20px; right:-12%; width:clamp(70px,26vw,120px);">
+    <img class="decor float-a" src="images/cupcake.png" alt="" style="bottom:-20px; right:-20%; width:clamp(70px,26vw,120px);">
   </section>
 
   <!-- ================= MAPA ================= -->
@@ -279,25 +275,24 @@
   <!-- ================= AGENDAR ================= -->
   <section class="cal-section reveal">
     <!-- vinyl record, left edge -->
-    <img class="decor float-b" src="images/vinilo.png" alt="" style="top:-10px; left:-14%; width:clamp(80px,28vw,130px);">
+    <img class="decor float-b" src="images/vinilo.png" alt="" style="top:-10px; left:-22%; width:clamp(80px,28vw,130px);">
     <!-- star stickers, right edge -->
-    <img class="decor float-a" src="images/estrella-foto.png" alt="" style="top:-30px; right:-10%; width:clamp(70px,26vw,110px);">
+    <img class="decor float-a" src="images/estrella-foto.png" alt="" style="top:-30px; right:-18%; width:clamp(70px,26vw,110px);">
 
     <div class="btn-row">
       <a class="btn" target="_blank" rel="noopener" id="googleCalBtn" href="#">Google Calendar</a>
-      <button class="btn" id="icsBtn">Descargar .ics</button>
     </div>
   </section>
 
   <!-- ================= RSVP (informal, sin caja) — bloque final ================= -->
   <section class="rsvp reveal">
     <!-- balloons, right edge -->
-    <img class="decor float-a" src="images/globos.png" alt="" style="top:-50px; right:-8%; width:clamp(70px,26vw,110px);">
+    <img class="decor float-a" src="images/globos.png" alt="" style="top:-50px; right:-16%; width:clamp(70px,26vw,110px);">
 
     <!-- cat face, left edge -->
-    <img class="decor float-b" src="images/gato.png" alt="" style="bottom:-10px; left:-12%; width:clamp(80px,28vw,130px);">
+    <img class="decor float-b" src="images/gato.png" alt="" style="bottom:-10px; left:-20%; width:clamp(80px,28vw,130px);">
 
-    <p>Avísame el domingo 13 de septiembre<br>si vienes</p>
+    <p>Aparta la fecha,<br>¡nos vemos!</p>
   </section>
 </div>
 
@@ -316,35 +311,6 @@
     + "&details=" + encodeURIComponent(details)
     + "&location=" + encodeURIComponent(venue);
   document.getElementById('googleCalBtn').href = gcalUrl;
-
-  // .ics download (funciona para Apple Calendar, Outlook, etc.)
-  document.getElementById('icsBtn').addEventListener('click', function(){
-    const ics = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//Invitacion Cumpleanos//ES",
-      "BEGIN:VEVENT",
-      "UID:" + Date.now() + "@mi-cumpleanos",
-      "DTSTAMP:" + evtStartUTC,
-      "DTSTART:" + evtStartUTC,
-      "DTEND:" + evtEndUTC,
-      "SUMMARY:" + title,
-      "DESCRIPTION:" + details,
-      "LOCATION:" + venue,
-      "END:VEVENT",
-      "END:VCALENDAR"
-    ].join("\r\n");
-
-    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "mi-cumpleanos.ics";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  });
 
   // ---------- Confetti interactivo ----------
   const canvas = document.getElementById('confetti-canvas');
