@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Cumpleaños 🎉</title>
+<title>Mi Cumpleaños</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Caveat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#faf6ee;
@@ -17,7 +17,7 @@
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
-  html{ overflow-x:hidden; }
+  html{ overflow-x:hidden; scroll-behavior:smooth; }
   body{
     background:var(--bg);
     font-family:'Poppins', sans-serif;
@@ -37,38 +37,39 @@
   .content{
     max-width:420px;
     margin:0 auto;
-    padding:48px 24px 0;
+    padding:56px 24px 0;
     position:relative;
     z-index:2;
+    overflow:visible;
   }
 
   section{
     position:relative;
   }
 
-  /* ---------- floating decorations ---------- */
+  /* ---------- scroll-reveal transitions ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 1s ease, transform 1s ease;
+  }
+  .reveal.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- floating decorations (very slow) ---------- */
   .decor{
     position:absolute;
     pointer-events:none;
     z-index:1;
-    filter:drop-shadow(0 6px 10px rgba(0,0,0,0.08));
+    filter:drop-shadow(0 8px 14px rgba(0,0,0,0.10));
   }
   .decor.clickable{ pointer-events:auto; cursor:pointer; }
-  @keyframes float-a{ 0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); } 50%{ transform:translateY(-10px) rotate(var(--r,0deg)); } }
-  @keyframes float-b{ 0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); } 50%{ transform:translateY(12px) rotate(var(--r,0deg)); } }
-  .float-a{ animation:float-a 4.5s ease-in-out infinite; }
-  .float-b{ animation:float-b 5.2s ease-in-out infinite; }
-
-  .sparkle{
-    position:absolute;
-    font-size:20px;
-    animation:twinkle 2.4s ease-in-out infinite;
-    z-index:1;
-  }
-  @keyframes twinkle{
-    0%,100%{ transform:scale(0.85) rotate(0deg); opacity:0.6; }
-    50%{ transform:scale(1.15) rotate(15deg); opacity:1; }
-  }
+  @keyframes float-a{ 0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); } 50%{ transform:translateY(-16px) rotate(var(--r,0deg)); } }
+  @keyframes float-b{ 0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); } 50%{ transform:translateY(18px) rotate(var(--r,0deg)); } }
+  .float-a{ animation:float-a 11s ease-in-out infinite; }
+  .float-b{ animation:float-b 13s ease-in-out infinite; }
 
   /* ---------- decor images ---------- */
   .decor img, img.decor{
@@ -77,81 +78,77 @@
     height:auto;
   }
   .disco-spin{
-    animation:spin 8s linear infinite;
+    animation:spin 9s linear infinite;
   }
   @keyframes spin{ to{ transform:rotate(360deg); } }
 
   /* ---------- HERO ---------- */
   .hero{
     text-align:center;
-    padding:54px 0 30px;
+    padding:200px 0 6px;
     overflow:visible;
   }
   .title-eyebrow{
-    font-family:'Caveat', cursive;
-    font-size:26px;
-    color:var(--pink);
-    transform:rotate(-3deg);
-    display:inline-block;
-    margin-bottom:-4px;
-  }
-  .title-main{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:clamp(28px, 10.5vw, 46px);
-    line-height:1.02;
-    letter-spacing:0.5px;
-    margin:6px 0 0;
-    max-width:100%;
-    overflow-wrap:break-word;
-    background:linear-gradient(180deg, #2a2a2a, #000);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    text-shadow:2px 2px 0 rgba(238,85,134,0.22);
-  }
-  .title-sub{
-    font-family:'Caveat', cursive;
-    font-weight:700;
-    font-size:32px;
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    font-size:19px;
     color:var(--pink-deep);
-    margin-top:8px;
-    transform:rotate(-1deg);
+    display:inline-block;
+    letter-spacing:0.2px;
   }
-  .balloon-num{
-    height:0.85em;
-    width:auto;
-    vertical-align:-0.12em;
-    margin:0 1px;
-    filter:drop-shadow(0 2px 3px rgba(0,0,0,0.15));
+  .title-img{
+    display:block;
+    width:100%;
+    max-width:360px;
+    margin:14px auto 0;
+    height:auto;
+  }
+
+  /* ---------- AGE BALLOONS (full-bleed band under the title) ---------- */
+  .age-band{
+    position:relative;
+    left:50%;
+    right:50%;
+    margin-left:-50vw;
+    margin-right:-50vw;
+    width:100vw;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:2vw;
+    padding:6px 0 26px;
+    overflow:visible;
+  }
+  .age-balloon{
+    width:40vw;
+    max-width:210px;
+    height:auto;
+    filter:drop-shadow(0 12px 18px rgba(0,0,0,0.14));
   }
 
   /* ---------- DETAILS (floating, no card) ---------- */
   .details{
-    padding:20px 0 30px;
+    padding:14px 0 34px;
     text-align:center;
   }
   .detail-line{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:11px 0;
-    font-size:17px;
+    font-family:'Fredoka', sans-serif;
     font-weight:600;
+    padding:11px 0;
+    font-size:18px;
   }
-  .detail-line .icon{ font-size:20px; }
   .detail-line .sub{
     display:block;
     font-family:'Caveat', cursive;
-    font-size:16px;
+    font-size:17px;
     font-weight:600;
     color:var(--muted);
-    margin-top:1px;
+    margin-top:2px;
   }
 
   /* ---------- MAP (kept minimal, functional) ---------- */
   .map-wrap{
-    padding:10px 0 34px;
+    padding:10px 0 40px;
   }
   .map-wrap iframe{
     width:100%;
@@ -179,6 +176,7 @@
     gap:7px;
     padding:10px 16px;
     border-radius:999px;
+    font-family:'Fredoka', sans-serif;
     font-weight:600;
     font-size:13px;
     text-decoration:none;
@@ -203,38 +201,22 @@
   /* ---------- AGENDAR ---------- */
   .cal-section{
     text-align:center;
-    padding:6px 0 34px;
-  }
-  .cal-section h2{
-    font-family:'Caveat', cursive;
-    font-size:26px;
-    font-weight:700;
-    color:var(--pink-deep);
-    margin:0 0 14px;
-    transform:rotate(-1deg);
+    padding:38px 0 46px;
   }
 
-  /* ---------- RSVP (floating text, no box) ---------- */
+  /* ---------- RSVP (floating text, no box) — final content block ---------- */
   .rsvp{
     text-align:center;
-    padding:6px 0 40px;
+    padding:6px 0 90px;
   }
   .rsvp p{
     font-family:'Caveat', cursive;
-    font-size:25px;
+    font-size:27px;
     font-weight:700;
     margin:0;
     color:var(--ink);
     line-height:1.3;
     transform:rotate(-0.6deg);
-  }
-
-  footer{
-    text-align:center;
-    font-family:'Caveat', cursive;
-    font-size:20px;
-    color:var(--muted);
-    padding:6px 0 54px;
   }
 </style>
 </head>
@@ -245,104 +227,94 @@
 <div class="content">
 
   <!-- ================= HERO ================= -->
-  <section class="hero">
-    <span class="sparkle" style="top:2px;left:2%;">✨</span>
-    <img class="decor float-b" src="images/estrella-grunge.png" alt="" style="top:10px;right:6%;width:26px;">
+  <section class="hero reveal">
+    <img class="decor float-b" src="images/estrella-grunge.png" alt="" style="top:6px;right:2%;width:clamp(50px,18vw,80px);">
 
     <!-- silver disco ball, top-left, clickable for confetti -->
-    <div class="decor clickable float-a" style="top:-6px; left:-16px; width:48px;" onclick="burstConfetti()" title="¡Toca la bola disco!">
+    <div class="decor clickable float-a" style="top:-4px; left:-8%; width:clamp(90px,32vw,140px);" onclick="burstConfetti()" title="Toca la bola disco">
       <img class="disco-spin" src="images/disco-plata.png" alt="">
     </div>
 
     <!-- pink disco ball, top-right, clickable -->
-    <div class="decor clickable float-b" style="top:-6px; right:-16px; width:48px;" onclick="burstConfetti()" title="¡Toca la bola disco!">
+    <div class="decor clickable float-b" style="top:26px; right:-10%; width:clamp(80px,28vw,120px);" onclick="burstConfetti()" title="Toca la bola disco">
       <img class="disco-spin" src="images/disco-rosa.png" alt="">
     </div>
 
     <!-- silver bunting across the very top -->
-    <img class="decor float-a" src="images/banderines.png" alt="" style="top:-40px; left:50%; transform:translateX(-50%); width:180px;">
+    <img class="decor float-a" src="images/banderines.png" alt="" style="top:-46px; left:50%; transform:translateX(-50%); width:clamp(200px,70vw,320px);">
 
-    <span class="title-eyebrow">¡Estás invitado/a a celebrar!</span>
-    <h1 class="title-main">MI CUMPLEAÑOS</h1>
-    <div class="title-sub">¡cumplo <img class="balloon-num" src="images/globo-4.png" alt="4"><img class="balloon-num" src="images/globo-6.png" alt="6"> años! 🎉</div>
+    <span class="title-eyebrow">Estás invitado/a a celebrar</span>
+    <img class="title-img" src="images/titulo.png" alt="Mi Cumpleaños">
   </section>
 
-  <!-- ================= DETALLES ================= -->
-  <section class="details">
-    <!-- martini glass, left edge -->
-    <img class="decor float-b" src="images/copa.png" alt="" style="top:10px; left:-30px; width:58px;">
+  <!-- ============ globos de edad, a todo el ancho, justo debajo del título ============ -->
+  <div class="age-band reveal">
+    <img class="age-balloon float-a" src="images/globo-4.png" alt="4">
+    <img class="age-balloon float-b" src="images/globo-6.png" alt="6">
+  </div>
 
-    <div class="detail-line">
-      <span class="icon">📅</span>
-      <span>Miércoles 16 de septiembre</span>
-    </div>
-    <div class="detail-line">
-      <span class="icon">⏰</span>
-      <span>8:00 PM</span>
-    </div>
-    <div class="detail-line">
-      <span class="icon">📍</span>
-      <span>Yiva's Bar Restaurante, Nandayure</span>
-    </div>
-    <span class="sub">música, tragos y mucho baile ✨</span>
+  <!-- ================= DETALLES ================= -->
+  <section class="details reveal">
+    <!-- martini glass, left edge -->
+    <img class="decor float-b" src="images/copa.png" alt="" style="top:24px; left:-14%; width:clamp(80px,28vw,130px);">
+    <!-- lips, right edge -->
+    <img class="decor float-a" src="images/labios.png" alt="" style="top:60px; right:-10%; width:clamp(60px,22vw,100px);">
+
+    <div class="detail-line">Miércoles 16 de septiembre</div>
+    <div class="detail-line">8:00 PM</div>
+    <div class="detail-line">Yiva's Bar Restaurante, Nandayure</div>
+    <span class="sub">música, tragos y mucho baile</span>
 
     <!-- cupcake, right edge -->
-    <img class="decor float-a" src="images/cupcake.png" alt="" style="bottom:-14px; right:-24px; width:52px;">
+    <img class="decor float-a" src="images/cupcake.png" alt="" style="bottom:-20px; right:-12%; width:clamp(70px,26vw,120px);">
   </section>
 
   <!-- ================= MAPA ================= -->
-  <section class="map-wrap">
+  <section class="map-wrap reveal">
     <iframe
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
       src="https://www.google.com/maps?q=Yiva%27s+Bar+Restaurante%2C+Nandayure%2C+Guanacaste%2C+Costa+Rica&output=embed">
     </iframe>
     <div class="map-caption">
-      <span>Yiva's Bar Restaurante 🍹</span>
+      <span>Yiva's Bar Restaurante</span>
       <a class="btn pink" target="_blank" rel="noopener"
          href="https://www.google.com/maps/search/?api=1&query=Yiva%27s+Bar+Restaurante%2C+Nandayure%2C+Guanacaste%2C+Costa+Rica">
-        📍 Cómo llegar
+        Cómo llegar
       </a>
     </div>
   </section>
 
   <!-- ================= AGENDAR ================= -->
-  <section class="cal-section">
+  <section class="cal-section reveal">
     <!-- vinyl record, left edge -->
-    <img class="decor float-b" src="images/vinilo.png" alt="" style="top:-8px; left:-30px; width:56px;">
+    <img class="decor float-b" src="images/vinilo.png" alt="" style="top:-10px; left:-14%; width:clamp(80px,28vw,130px);">
     <!-- star stickers, right edge -->
-    <img class="decor float-a" src="images/estrella-foto.png" alt="" style="top:-24px; right:-20px; width:50px;">
+    <img class="decor float-a" src="images/estrella-foto.png" alt="" style="top:-30px; right:-10%; width:clamp(70px,26vw,110px);">
 
-    <h2>¡No te lo pierdas!</h2>
     <div class="btn-row">
-      <a class="btn" target="_blank" rel="noopener" id="googleCalBtn" href="#">🗓️ Google Calendar</a>
-      <button class="btn" id="icsBtn">📥 Descargar .ics</button>
+      <a class="btn" target="_blank" rel="noopener" id="googleCalBtn" href="#">Google Calendar</a>
+      <button class="btn" id="icsBtn">Descargar .ics</button>
     </div>
   </section>
 
-  <!-- ================= RSVP (informal, sin caja) ================= -->
-  <section class="rsvp">
+  <!-- ================= RSVP (informal, sin caja) — bloque final ================= -->
+  <section class="rsvp reveal">
     <!-- balloons, right edge -->
-    <img class="decor float-a" src="images/globos.png" alt="" style="top:-36px; right:-16px; width:44px;">
+    <img class="decor float-a" src="images/globos.png" alt="" style="top:-50px; right:-8%; width:clamp(70px,26vw,110px);">
 
     <!-- cat face, left edge -->
-    <img class="decor float-b" src="images/gato.png" alt="" style="bottom:-16px; left:-28px; width:52px;">
+    <img class="decor float-b" src="images/gato.png" alt="" style="bottom:-10px; left:-12%; width:clamp(80px,28vw,130px);">
 
-    <p>Avísame el domingo 13 de septiembre<br>si vienes 💌</p>
+    <p>Avísame el domingo 13 de septiembre<br>si vienes</p>
   </section>
-
-  <footer>
-    <!-- lips, small accent above footer -->
-    <img class="decor float-a" src="images/labios.png" alt="" style="top:-6px; left:50%; transform:translateX(-120px); width:34px;">
-    ¡nos vemos en la fiesta! ✨
-  </footer>
 </div>
 
 <script>
   // ---------- Fechas del evento (hora de Costa Rica, UTC-6) ----------
   const evtStartUTC = "20260917T020000Z"; // 16 sep 8:00 PM CR
   const evtEndUTC   = "20260917T050000Z"; // 16 sep 11:00 PM CR
-  const title = "Mi Cumpleaños 🎉 (46 años)";
+  const title = "Mi Cumpleaños (46 años)";
   const venue = "Yiva's Bar Restaurante, Nandayure, Guanacaste, Costa Rica";
   const details = "¡Celebremos! Miércoles 16 de septiembre, 8:00 PM en Yiva's Bar Restaurante, Nandayure.";
 
@@ -430,8 +402,17 @@
   }
   loop();
 
-  // pequeña ráfaga de bienvenida
-  window.addEventListener('load', ()=> setTimeout(burstConfetti, 500));
+  // ---------- Transición al deslizar: aparecen las secciones al hacer scroll ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
 </script>
 </body>
 </html>
