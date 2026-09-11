@@ -3,44 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cumpleaños de Mamá 🎉</title>
+<title>Mi Cumpleaños</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Caveat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#f3ecdf;
-    --pink:#ff2f7e;
-    --pink-soft:#ffc3dd;
-    --gold:#ffd23f;
-    --ink:#1a1a1a;
+    --bg:#faf6ee;
+    --pink:#ee5586;
+    --pink-deep:#d63d78;
+    --ink:#2b2620;
+    --muted:#8a8175;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
+  html{ overflow-x:hidden; scroll-behavior:smooth; }
   body{
-    background:
-      radial-gradient(circle at 15% 10%, rgba(255,47,126,0.12), transparent 40%),
-      radial-gradient(circle at 85% 90%, rgba(255,210,63,0.18), transparent 45%),
-      var(--cream);
-    background-attachment:fixed;
+    background:var(--bg);
     font-family:'Poppins', sans-serif;
     color:var(--ink);
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
-    padding-bottom:40px;
-  }
-
-  /* film grain / paper texture */
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background-image:
-      repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0 1px, transparent 1px 3px),
-      repeating-linear-gradient(90deg, rgba(0,0,0,0.01) 0 1px, transparent 1px 3px);
-    z-index:1;
-    opacity:0.6;
+    position:relative;
   }
 
   #confetti-canvas{
@@ -50,264 +34,150 @@
     z-index:50;
   }
 
-  .wrap{
-    max-width:480px;
+  .content{
+    max-width:420px;
     margin:0 auto;
-    padding:28px 18px 0;
+    padding:50px 24px 0;
     position:relative;
     z-index:2;
+    overflow:visible;
   }
 
-  /* ---------- HEADER ---------- */
-  .hero{
+  section{
     position:relative;
-    text-align:center;
-    padding:18px 10px 26px;
   }
 
-  .disco{
-    width:70px;
-    height:70px;
-    margin:0 auto 6px;
-    border-radius:50%;
-    background:
-      radial-gradient(circle at 30% 25%, #fff 0%, #cfd4da 12%, #9aa1ab 35%, #565b63 60%, #2a2d33 100%);
-    box-shadow:
-      0 0 30px rgba(255,255,255,0.6),
-      inset 0 0 12px rgba(0,0,0,0.5);
-    position:relative;
-    animation:spin 6s linear infinite;
-    background-size:100% 100%;
+  /* ---------- scroll-reveal transitions ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 1s ease, transform 1s ease;
   }
-  .disco::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:50%;
-    background-image:
-      linear-gradient(0deg, transparent 48%, rgba(0,0,0,0.25) 49%, transparent 51%),
-      linear-gradient(30deg, transparent 48%, rgba(0,0,0,0.2) 49%, transparent 51%),
-      linear-gradient(60deg, transparent 48%, rgba(0,0,0,0.2) 49%, transparent 51%),
-      linear-gradient(90deg, transparent 48%, rgba(0,0,0,0.2) 49%, transparent 51%),
-      linear-gradient(120deg, transparent 48%, rgba(0,0,0,0.2) 49%, transparent 51%),
-      linear-gradient(150deg, transparent 48%, rgba(0,0,0,0.2) 49%, transparent 51%);
-    mix-blend-mode:multiply;
-  }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-
-  .sparkle{
-    position:absolute;
-    font-size:22px;
-    animation:twinkle 2.4s ease-in-out infinite;
-    filter:drop-shadow(0 2px 2px rgba(0,0,0,0.15));
-  }
-  @keyframes twinkle{
-    0%,100%{ transform:scale(0.85) rotate(0deg); opacity:0.7; }
-    50%{ transform:scale(1.15) rotate(15deg); opacity:1; }
+  .reveal.in-view{
+    opacity:1;
+    transform:translateY(0);
   }
 
-  .title-stack{
-    margin-top:6px;
+  /* ---------- floating decorations (very slow) ---------- */
+  .decor{
+    position:absolute;
+    pointer-events:none;
+    z-index:1;
+    filter:drop-shadow(0 8px 14px rgba(0,0,0,0.10));
   }
-  .title-eyebrow{
-    font-family:'Caveat', cursive;
-    font-size:26px;
-    color:var(--pink);
-    transform:rotate(-3deg);
-    display:inline-block;
-    margin-bottom:-6px;
-  }
-  .title-main{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:min(15vw, 68px);
-    line-height:0.95;
-    letter-spacing:1px;
-    margin:4px 0 0;
-    background:linear-gradient(180deg, #2a2a2a, #000);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    text-shadow:2px 2px 0 rgba(255,47,126,0.25);
-  }
-  .title-sub{
-    font-family:'Caveat', cursive;
-    font-weight:700;
-    font-size:34px;
-    color:var(--pink);
-    margin-top:2px;
-    transform:rotate(2deg);
-  }
-  .age-badge{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #fff, var(--gold) 55%, #e0a900 100%);
-    border:3px solid var(--ink);
-    font-family:'Bebas Neue', sans-serif;
-    font-size:30px;
-    color:var(--ink);
-    transform:rotate(-8deg);
-    box-shadow:3px 3px 0 rgba(0,0,0,0.15);
-    position:relative;
-    top:6px;
-  }
+  .decor.clickable{ pointer-events:auto; cursor:pointer; }
+  @keyframes float-a{ 0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); } 50%{ transform:translateY(-16px) rotate(var(--r,0deg)); } }
+  @keyframes float-b{ 0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); } 50%{ transform:translateY(18px) rotate(var(--r,0deg)); } }
+  .float-a{ animation:float-a 11s ease-in-out infinite; }
+  .float-b{ animation:float-b 13s ease-in-out infinite; }
 
-  /* ---------- PHOTO / COLLAGE CARD ---------- */
-  .collage{
-    position:relative;
-    background:#fff;
-    padding:14px 14px 44px;
-    margin:26px auto 30px;
-    max-width:300px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.18);
-    transform:rotate(-2deg);
-    border-radius:2px;
-  }
-  .collage .photo-slot{
-    width:100%;
-    aspect-ratio:1/1;
-    background:
-      repeating-linear-gradient(45deg, #d9d2c4 0 10px, #cfc7b6 10px 20px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:#6b6252;
-    font-size:13px;
-    font-family:'Poppins',sans-serif;
-    padding:12px;
-    filter:grayscale(1) contrast(1.05);
-  }
-  /*
-    Para poner la foto real: reemplaza el <div class="photo-slot">...</div>
-    de más abajo por: <img class="photo-slot" src="TU-FOTO.jpg" alt="Mamá">
-  */
-  .collage .caption{
-    font-family:'Caveat', cursive;
-    font-size:22px;
-    color:var(--pink);
-    text-align:center;
-    position:absolute;
-    bottom:8px;
-    left:0;
-    right:0;
-  }
-  .tape{
-    position:absolute;
-    width:70px;
-    height:26px;
-    background:rgba(255,210,63,0.75);
-    border:1px solid rgba(0,0,0,0.05);
-    top:-14px;
-    left:50%;
-    transform:translateX(-50%) rotate(-4deg);
-    box-shadow:0 2px 4px rgba(0,0,0,0.15);
-  }
-  .star-sticker{
-    position:absolute;
-    font-size:34px;
-    z-index:3;
-  }
-
-  /* ---------- DETAILS CARD ---------- */
-  .card{
-    background:#fff;
-    border-radius:18px;
-    padding:22px 20px;
-    box-shadow:0 12px 30px rgba(0,0,0,0.12);
-    position:relative;
-    margin-bottom:22px;
-    border:2px dashed var(--pink);
-  }
-  .card h2{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:26px;
-    letter-spacing:1px;
-    margin:0 0 14px;
-    text-align:center;
-    color:var(--ink);
-  }
-  .detail-row{
-    display:flex;
-    align-items:flex-start;
-    gap:12px;
-    padding:10px 0;
-    border-bottom:1px solid #f1e9d8;
-  }
-  .detail-row:last-child{ border-bottom:none; }
-  .detail-row .icon{
-    font-size:26px;
-    line-height:1;
-    width:34px;
-    text-align:center;
-  }
-  .detail-row .txt strong{
+  /* ---------- decor images ---------- */
+  .decor img, img.decor{
     display:block;
-    font-size:16px;
-    font-weight:600;
-  }
-  .detail-row .txt span{
-    font-size:14px;
-    color:#666;
+    width:100%;
+    height:auto;
   }
 
-  /* ---------- MAP ---------- */
-  .map-card{
-    background:#fff;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 12px 30px rgba(0,0,0,0.12);
-    margin-bottom:22px;
+  /* ---------- HERO ---------- */
+  .hero{
+    text-align:center;
+    padding:200px 0 6px;
+    overflow:visible;
   }
-  .map-card iframe{
+  .title-img{
+    display:block;
     width:100%;
-    height:220px;
+    max-width:360px;
+    margin:14px auto 0;
+    height:auto;
+  }
+
+  /* ---------- AGE BALLOONS (full-bleed band under the title) ---------- */
+  .age-band{
+    position:relative;
+    left:50%;
+    right:50%;
+    margin-left:-50vw;
+    margin-right:-50vw;
+    width:100vw;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:2vw;
+    padding:6px 0 26px;
+    overflow:visible;
+  }
+  .age-balloon{
+    width:33vw;
+    max-width:170px;
+    height:auto;
+    filter:drop-shadow(0 12px 18px rgba(0,0,0,0.14));
+  }
+
+  /* ---------- DETAILS (floating, no card) ---------- */
+  .details{
+    padding:14px 0 34px;
+    text-align:center;
+  }
+  .detail-line{
+    font-family:'Fredoka', sans-serif;
+    font-weight:600;
+    padding:11px 0;
+    font-size:18px;
+  }
+  .sub{
+    display:block;
+    font-family:'Caveat', cursive;
+    font-size:17px;
+    font-weight:600;
+    color:var(--muted);
+    margin-top:2px;
+  }
+
+  /* ---------- MAP (kept minimal, functional) ---------- */
+  .map-wrap{
+    padding:10px 0 40px;
+  }
+  .map-wrap iframe{
+    width:100%;
+    height:210px;
     border:0;
     display:block;
-    filter:grayscale(0.15);
+    border-radius:14px;
+    filter:grayscale(0.1) contrast(1.02);
   }
-  .map-card .map-footer{
-    padding:14px 16px;
+  .map-caption{
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:10px;
     flex-wrap:wrap;
-  }
-  .map-card .map-footer p{
-    margin:0;
+    margin-top:12px;
     font-size:14px;
-    color:#555;
+    color:var(--muted);
   }
 
-  /* ---------- BUTTONS ---------- */
+  /* ---------- BUTTONS (ghost pills, no big colored boxes) ---------- */
   .btn{
     display:inline-flex;
     align-items:center;
-    gap:8px;
-    padding:11px 18px;
+    gap:7px;
+    padding:10px 16px;
     border-radius:999px;
+    font-family:'Fredoka', sans-serif;
     font-weight:600;
-    font-size:14px;
+    font-size:13px;
     text-decoration:none;
-    border:2px solid var(--ink);
+    border:1.5px solid var(--ink);
     cursor:pointer;
-    transition:transform .15s ease, box-shadow .15s ease;
-    background:var(--ink);
-    color:#fff;
+    background:transparent;
+    color:var(--ink);
+    transition:transform .15s ease;
   }
   .btn:active{ transform:scale(0.96); }
-  .btn.outline{
-    background:#fff;
-    color:var(--ink);
-  }
-  .btn.gold{
-    background:var(--gold);
-    color:var(--ink);
-    border-color:var(--ink);
+  .btn.pink{
+    border-color:var(--pink-deep);
+    color:var(--pink-deep);
   }
   .btn-row{
     display:flex;
@@ -316,79 +186,22 @@
     justify-content:center;
   }
 
-  /* ---------- CALENDAR SECTION ---------- */
-  .cal-card{
-    background:linear-gradient(135deg, var(--pink), #ff6fa8);
-    border-radius:18px;
-    padding:22px 20px;
+  /* ---------- RSVP (floating text, no box) — final content block ---------- */
+  .rsvp{
     text-align:center;
-    color:#fff;
-    box-shadow:0 12px 30px rgba(255,47,126,0.35);
-    margin-bottom:22px;
-    position:relative;
-    overflow:hidden;
+    padding:26px 0 90px;
   }
-  .cal-card::after{
-    content:"🎊";
-    position:absolute;
-    font-size:120px;
-    opacity:0.15;
-    right:-20px;
-    top:-30px;
-    transform:rotate(15deg);
-  }
-  .cal-card h2{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:24px;
-    margin:0 0 10px;
-    letter-spacing:1px;
-  }
-  .cal-card .btn-row .btn{
-    background:#fff;
-    color:var(--pink);
-    border-color:#fff;
-  }
-
-  /* ---------- RSVP NOTE ---------- */
-  .note{
-    background:var(--gold);
-    border-radius:4px;
-    padding:20px 18px;
-    text-align:center;
-    transform:rotate(1.5deg);
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
-    margin-bottom:26px;
-    position:relative;
-  }
-  .note::before{
-    content:"📌";
-    position:absolute;
-    top:-14px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:26px;
-  }
-  .note p{
+  .rsvp p{
     font-family:'Caveat', cursive;
-    font-size:24px;
+    font-size:27px;
     font-weight:700;
     margin:0;
-    color:#1a1a1a;
-    line-height:1.25;
+    color:var(--ink);
+    line-height:1.3;
+    transform:rotate(-0.6deg);
   }
-
-  footer{
-    text-align:center;
-    font-family:'Caveat', cursive;
-    font-size:20px;
-    color:#999;
-    padding:10px 0 30px;
-  }
-
-  @media (min-width:400px){
-    .sparkle.s1{ top:6px; left:8%; }
-    .sparkle.s2{ top:14px; right:10%; }
-    .sparkle.s3{ bottom:0; left:20%; }
+  .rsvp .btn-row{
+    margin-top:24px;
   }
 </style>
 </head>
@@ -396,113 +209,96 @@
 
 <canvas id="confetti-canvas"></canvas>
 
-<div class="wrap">
+<div class="content">
 
   <!-- ================= HERO ================= -->
-  <section class="hero">
-    <span class="sparkle s1" style="top:0;left:6%;">✨</span>
-    <span class="sparkle s2" style="top:10px;right:8%;animation-delay:.6s;">⭐</span>
-    <span class="sparkle s3" style="bottom:-6px;left:18%;animation-delay:1.2s;">✨</span>
+  <section class="hero reveal">
+    <img class="decor float-b" src="images/estrella-grunge.png" alt="" style="top:-2px;right:-14%;width:clamp(50px,18vw,80px);">
 
-    <div class="disco" onclick="burstConfetti()" title="¡Toca la bola disco!"></div>
-
-    <div class="title-stack">
-      <span class="title-eyebrow">¡Estás invitado/a a celebrar!</span>
-      <h1 class="title-main">CUMPLE<br>DE MAMÁ</h1>
-      <div class="title-sub">¡son sus <span class="age-badge">46</span> años! 🥳</div>
+    <!-- silver disco ball, top-left, clickable for confetti -->
+    <div class="decor clickable float-a" style="top:-10px; left:-18%; width:clamp(90px,32vw,140px);" onclick="burstConfetti()" title="Toca la bola disco">
+      <img src="images/disco-plata.png" alt="">
     </div>
+
+    <!-- silver bunting, centered at the top of the header -->
+    <div class="decor" style="top:-16px; left:50%; transform:translateX(-50%); width:clamp(240px,78vw,360px);">
+      <img class="float-a" src="images/banderines.png" alt="">
+    </div>
+
+    <img class="title-img" src="images/titulo.png" alt="Te invito a celebrar mi cumpleaños">
   </section>
 
-  <!-- ================= COLLAGE / FOTO ================= -->
-  <div class="collage">
-    <div class="tape"></div>
-    <span class="star-sticker" style="top:-10px; right:-14px;">⭐</span>
-    <span class="star-sticker" style="bottom:26px; left:-16px; font-size:26px;">💖</span>
-
-    <!-- Cuando tengas la foto, cambia este div por:
-         <img class="photo-slot" src="mama.jpg" alt="Mamá"> -->
-    <div class="photo-slot">📸<br>tu foto va aquí</div>
-
-    <div class="caption">¡la reina de la fiesta!</div>
+  <!-- ============ globos de edad, a todo el ancho, justo debajo del título ============ -->
+  <div class="age-band reveal">
+    <img class="age-balloon float-a" src="images/globo-4.png" alt="4">
+    <img class="age-balloon float-b" src="images/globo-6.png" alt="6">
   </div>
 
   <!-- ================= DETALLES ================= -->
-  <section class="card">
-    <h2>📋 DETALLES DE LA FIESTA</h2>
+  <section class="details reveal">
+    <!-- martini glass, left edge -->
+    <img class="decor float-b" src="images/copa.png" alt="" style="top:24px; left:-22%; width:clamp(80px,28vw,130px);">
+    <!-- lips, right edge -->
+    <img class="decor float-a" src="images/labios.png" alt="" style="top:60px; right:-18%; width:clamp(60px,22vw,100px);">
 
-    <div class="detail-row">
-      <div class="icon">📅</div>
-      <div class="txt">
-        <strong>Miércoles 16 de septiembre</strong>
-        <span>¡A mitad de semana pero con toda la energía!</span>
-      </div>
-    </div>
+    <div class="detail-line">Miércoles 16 de septiembre</div>
+    <div class="detail-line">8:00 PM</div>
+    <div class="detail-line">Temática: The Wild West<br>/ El Salvaje Oeste 🤠🌵</div>
+    <span class="sub">Botas, sombreros y actitud vaquera.</span>
+    <div class="detail-line" style="margin-top:8px;">Yiva's Bar Restaurante, Nandayure</div>
+    <span class="sub">Te espero para celebrar juntos<br>y compartir una linda velada</span>
 
-    <div class="detail-row">
-      <div class="icon">⏰</div>
-      <div class="txt">
-        <strong>8:00 PM</strong>
-        <span>Llega puntual, ¡que empieza la fiesta!</span>
-      </div>
-    </div>
-
-    <div class="detail-row">
-      <div class="icon">📍</div>
-      <div class="txt">
-        <strong>Yiva's Bar Restaurante</strong>
-        <span>Nandayure, Guanacaste</span>
-      </div>
-    </div>
-
-    <div class="detail-row">
-      <div class="icon">🎶</div>
-      <div class="txt">
-        <strong>Música, tragos y mucho baile</strong>
-        <span>Ven con toda la actitud disco ✨</span>
-      </div>
-    </div>
+    <!-- cupcake, right edge -->
+    <img class="decor float-a" src="images/cupcake.png" alt="" style="bottom:-20px; right:-20%; width:clamp(70px,26vw,120px);">
   </section>
 
   <!-- ================= MAPA ================= -->
-  <section class="map-card">
+  <section class="map-wrap reveal">
     <iframe
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
       src="https://www.google.com/maps?q=Yiva%27s+Bar+Restaurante%2C+Nandayure%2C+Guanacaste%2C+Costa+Rica&output=embed">
     </iframe>
-    <div class="map-footer">
-      <p>Yiva's Bar Restaurante, Nandayure 🍹</p>
-      <a class="btn" target="_blank" rel="noopener"
+    <div class="map-caption">
+      <span>Yiva's Bar Restaurante</span>
+      <a class="btn pink" target="_blank" rel="noopener"
          href="https://www.google.com/maps/search/?api=1&query=Yiva%27s+Bar+Restaurante%2C+Nandayure%2C+Guanacaste%2C+Costa+Rica">
-        📍 Cómo llegar
+        Cómo llegar
       </a>
     </div>
   </section>
 
-  <!-- ================= AGENDAR ================= -->
-  <section class="cal-card">
-    <h2>¡NO TE LO PIERDAS!</h2>
+  <!-- ================= RSVP (informal, sin caja) — bloque final, con el botón de calendario debajo ================= -->
+  <section class="rsvp reveal">
+    <!-- vinyl record, left edge -->
+    <img class="decor float-b" src="images/vinilo.png" alt="" style="top:-30px; left:-22%; width:clamp(80px,28vw,130px);">
+
+    <!-- balloons, right edge -->
+    <img class="decor float-a" src="images/globos.png" alt="" style="top:-50px; right:-16%; width:clamp(70px,26vw,110px);">
+
+    <!-- cat face, left edge -->
+    <img class="decor float-b" src="images/gato.png" alt="" style="bottom:-10px; left:-20%; width:clamp(80px,28vw,130px);">
+
+    <!-- pink disco ball, end of the page, to one side -->
+    <div class="decor clickable float-a" style="bottom:-20px; right:-14%; width:clamp(80px,28vw,120px);" onclick="burstConfetti()" title="Toca la bola disco">
+      <img src="images/disco-rosa.png" alt="">
+    </div>
+
+    <p>Aparta la fecha,<br>¡nos vemos!</p>
+
     <div class="btn-row">
-      <a class="btn" target="_blank" rel="noopener" id="googleCalBtn" href="#">🗓️ Google Calendar</a>
-      <button class="btn" id="icsBtn">📥 Descargar (Apple/Outlook)</button>
+      <a class="btn" target="_blank" rel="noopener" id="googleCalBtn" href="#">Google Calendar</a>
     </div>
   </section>
-
-  <!-- ================= RSVP (informal) ================= -->
-  <div class="note">
-    <p>Avísame el domingo 13 de septiembre<br>si vas a venir 💌<br>¡para contar bien los tragos! 🍾</p>
-  </div>
-
-  <footer>con mucho amor, te esperamos ✨</footer>
 </div>
 
 <script>
   // ---------- Fechas del evento (hora de Costa Rica, UTC-6) ----------
   const evtStartUTC = "20260917T020000Z"; // 16 sep 8:00 PM CR
   const evtEndUTC   = "20260917T050000Z"; // 16 sep 11:00 PM CR
-  const title = "Cumpleaños de Mamá 🎉 (46 años)";
+  const title = "Mi Cumpleaños (46 años)";
   const venue = "Yiva's Bar Restaurante, Nandayure, Guanacaste, Costa Rica";
-  const details = "¡Celebremos los 46 años de mamá! Miércoles 16 de septiembre, 8:00 PM en Yiva's Bar Restaurante, Nandayure.";
+  const details = "¡Celebremos! Miércoles 16 de septiembre, 8:00 PM en Yiva's Bar Restaurante, Nandayure.";
 
   // Google Calendar link
   const gcalUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE"
@@ -512,35 +308,6 @@
     + "&location=" + encodeURIComponent(venue);
   document.getElementById('googleCalBtn').href = gcalUrl;
 
-  // .ics download (funciona para Apple Calendar, Outlook, etc.)
-  document.getElementById('icsBtn').addEventListener('click', function(){
-    const ics = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//Invitacion Cumple Mama//ES",
-      "BEGIN:VEVENT",
-      "UID:" + Date.now() + "@cumple-mama",
-      "DTSTAMP:" + evtStartUTC,
-      "DTSTART:" + evtStartUTC,
-      "DTEND:" + evtEndUTC,
-      "SUMMARY:" + title,
-      "DESCRIPTION:" + details,
-      "LOCATION:" + venue,
-      "END:VEVENT",
-      "END:VCALENDAR"
-    ].join("\r\n");
-
-    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "cumple-mama.ics";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  });
-
   // ---------- Confetti interactivo ----------
   const canvas = document.getElementById('confetti-canvas');
   const ctx = canvas.getContext('2d');
@@ -549,7 +316,7 @@
   window.addEventListener('resize', resize);
 
   let particles = [];
-  const colors = ['#ff2f7e', '#ffd23f', '#ffffff', '#ff6fa8', '#2a2d33'];
+  const colors = ['#ee5586', '#ffffff', '#d63d78', '#c7cbd1', '#2b2620'];
 
   function burstConfetti(){
     const cx = window.innerWidth/2;
@@ -588,8 +355,17 @@
   }
   loop();
 
-  // pequeña ráfaga de bienvenida
-  window.addEventListener('load', ()=> setTimeout(burstConfetti, 500));
+  // ---------- Transición al deslizar: aparecen las secciones al hacer scroll ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
 </script>
 </body>
 </html>
